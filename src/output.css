@@ -312,6 +312,9 @@
   .mt-12 {
     margin-top: calc(var(--spacing) * 12);
   }
+  .mt-24 {
+    margin-top: calc(var(--spacing) * 24);
+  }
   .mr-3 {
     margin-right: calc(var(--spacing) * 3);
   }
@@ -805,6 +808,12 @@
   .bg-\[0a0f1e\] {
     background-color: 0a0f1e;
   }
+  .bg-\[OD4A\] {
+    background-color: OD4A;
+  }
+  .bg-\[OD1530\] {
+    background-color: OD1530;
+  }
   .bg-blue-500 {
     background-color: var(--color-blue-500);
   }
@@ -1004,6 +1013,9 @@
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
   }
+  .py-8 {
+    padding-block: calc(var(--spacing) * 8);
+  }
   .py-10 {
     padding-block: calc(var(--spacing) * 10);
   }
@@ -1034,8 +1046,20 @@
   .pt-10 {
     padding-top: calc(var(--spacing) * 10);
   }
+  .pt-24 {
+    padding-top: calc(var(--spacing) * 24);
+  }
+  .pt-32 {
+    padding-top: calc(var(--spacing) * 32);
+  }
   .pt-36 {
     padding-top: calc(var(--spacing) * 36);
+  }
+  .pt-40 {
+    padding-top: calc(var(--spacing) * 40);
+  }
+  .pt-64 {
+    padding-top: calc(var(--spacing) * 64);
   }
   .pr-1 {
     padding-right: calc(var(--spacing) * 1);
@@ -1051,6 +1075,9 @@
   }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
+  }
+  .pb-8 {
+    padding-bottom: calc(var(--spacing) * 8);
   }
   .pb-16 {
     padding-bottom: calc(var(--spacing) * 16);
@@ -1169,6 +1196,9 @@
     --tw-tracking: var(--tracking-widest);
     letter-spacing: var(--tracking-widest);
   }
+  .whitespace-nowrap {
+    white-space: nowrap;
+  }
   .text-\[\#00D4FF\] {
     color: #00D4FF;
   }
@@ -1195,6 +1225,12 @@
   }
   .text-\[\#94A3\] {
     color: #94A3;
+  }
+  .text-\[\#94A38\] {
+    color: #94A38;
+  }
+  .text-\[\#94A368\] {
+    color: #94A368;
   }
   .text-\[\#94A\] {
     color: #94A;
@@ -1432,15 +1468,41 @@
       gap: calc(var(--spacing) * 3);
     }
   }
+  .sm\:gap-4 {
+    @media (width >= 40rem) {
+      gap: calc(var(--spacing) * 4);
+    }
+  }
   .sm\:gap-6 {
     @media (width >= 40rem) {
       gap: calc(var(--spacing) * 6);
+    }
+  }
+  .sm\:gap-8 {
+    @media (width >= 40rem) {
+      gap: calc(var(--spacing) * 8);
+    }
+  }
+  .sm\:gap-10 {
+    @media (width >= 40rem) {
+      gap: calc(var(--spacing) * 10);
+    }
+  }
+  .sm\:pt-40 {
+    @media (width >= 40rem) {
+      padding-top: calc(var(--spacing) * 40);
     }
   }
   .sm\:text-base {
     @media (width >= 40rem) {
       font-size: var(--text-base);
       line-height: var(--tw-leading, var(--text-base--line-height));
+    }
+  }
+  .sm\:text-sm {
+    @media (width >= 40rem) {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
     }
   }
   .sm\:text-xs {
@@ -1529,6 +1591,11 @@
       gap: calc(var(--spacing) * 10);
     }
   }
+  .md\:gap-14 {
+    @media (width >= 48rem) {
+      gap: calc(var(--spacing) * 14);
+    }
+  }
   .md\:px-6 {
     @media (width >= 48rem) {
       padding-inline: calc(var(--spacing) * 6);
@@ -1602,6 +1669,11 @@
   .lg\:grid-cols-3 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .lg\:pt-64 {
+    @media (width >= 64rem) {
+      padding-top: calc(var(--spacing) * 64);
     }
   }
   .lg\:text-7xl {
