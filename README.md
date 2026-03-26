@@ -35,7 +35,13 @@ Profile-Card/
 ├── index.html              # Main directory page
 ├── src/
 │   ├── input.css          # Tailwind CSS imports
-│   └── output.css         # Compiled Tailwind styles
+│   ├── output.css         # Compiled Tailwind styles
+│   ├── profile-1.html     # Amara Osei profile
+│   ├── profile-2.html     # Zara Ahmed profile
+│   ├── profile-3.html     # Kofi Mensah profile
+│   ├── profile-4.html     # Lila Torres profile
+│   ├── profile-5.html     # Emeka Nwosu profile
+│   └── profile-6.html     # Priya Sharma profile
 ├── package.json           # Dependencies and scripts
 ├── package-lock.json      # Dependency lock file
 ├── .gitignore            # Git ignore rules
@@ -69,30 +75,40 @@ The directory features 6 students from various disciplines:
 
 ## 🚀 Getting Started
 
+### Prerequisites
+- Modern web browser
+- Live server extension (VS Code) or similar tool
+
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/TEAM-II-JS-COMBINED/Profile-Card.git
    cd Profile-Card
    ```
 
 2. **Start development server**
-   ```
-   GoLive
-   ```
+   - Using VS Code Live Server extension
+   - Or use any local server (GoLive, Python HTTP server, etc.)
+   - Open `index.html` directly in browser (limited functionality)
+
+3. **Navigate to individual profiles**
+   - Click on any student card in the main directory
+   - Or directly access: `src/profile-[1-6].html`
 
 ## 🎯 Customization
 
 ### Adding New Students
 
 1. Copy an existing card structure in `index.html`
-2. Update the student information:
+2. Create a new profile file in `src/` directory (e.g., `profile-7.html`)
+3. Update the student information:
    - Name and role
    - Avatar initial and color
    - Skills list
-   - Profile link
-3. Adjust the color variables for unique theming
+   - Profile link (`href="profile-7.html"`)
+4. Adjust the color variables for unique theming
+5. Update the README with new student information
 
 ### Modifying Colors
 
@@ -135,7 +151,7 @@ Update the CSS variables in the styles section:
 
 ## 🤝 Contributing
 
-1. clon the repository
+1. Clone the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
