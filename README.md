@@ -69,10 +69,6 @@ The directory features 6 students from various disciplines:
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
-
 ### Installation
 
 1. **Clone the repository**
@@ -81,29 +77,10 @@ The directory features 6 students from various disciplines:
    cd Profile-Card
    ```
 
-2. **Install dependencies**
-   ```bash
-   npm install
+2. **Start development server**
    ```
-
-3. **Build the CSS**
-   ```bash
-   npm run build
+   GoLive
    ```
-
-4. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open in browser**
-   Navigate to `http://localhost:3000` or open `index.html` directly
-
-## 📜 Available Scripts
-
-- `npm run build` - Compile Tailwind CSS
-- `npm run dev` - Start development server with watch mode
-- `npm run start` - Start production server
 
 ## 🎯 Customization
 
