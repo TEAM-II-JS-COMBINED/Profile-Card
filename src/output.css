@@ -235,6 +235,9 @@
   .right-0 {
     right: calc(var(--spacing) * 0);
   }
+  .right-20 {
+    right: calc(var(--spacing) * 20);
+  }
   .bottom-10 {
     bottom: calc(var(--spacing) * 10);
   }
@@ -1388,6 +1391,18 @@
   }
   .underline {
     text-decoration-line: underline;
+  }
+  .opacity-6 {
+    opacity: 6%;
+  }
+  .opacity-10 {
+    opacity: 10%;
+  }
+  .opacity-20 {
+    opacity: 20%;
+  }
+  .opacity-30 {
+    opacity: 30%;
   }
   .shadow {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
