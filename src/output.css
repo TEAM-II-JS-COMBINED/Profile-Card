@@ -462,6 +462,9 @@
   .w-95 {
     width: calc(var(--spacing) * 95);
   }
+  .w-\[\%\] {
+    width: %;
+  }
   .w-\[70\%\] {
     width: 70%;
   }
@@ -731,6 +734,15 @@
   }
   .bg-\[\#9dfcf16f\] {
     background-color: #9dfcf16f;
+  }
+  .bg-\[\#14B8A6\] {
+    background-color: #14B8A6;
+  }
+  .bg-\[\#14B8\] {
+    background-color: #14B8;
+  }
+  .bg-\[\#14B\] {
+    background-color: #14B;
   }
   .bg-\[\#589e96\] {
     background-color: #589e96;
