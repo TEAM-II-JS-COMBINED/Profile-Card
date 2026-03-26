@@ -1,521 +1,598 @@
-<!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassGlass — Student Directory</title>
-    <link href="/src/output.css" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
-        rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLF — Student Directory</title>
+  <!-- <link rel="stylesheet" href="src/output.css"> -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+          },
+          colors: {
+            navy: '#0a0f1e',
+            glass: 'rgba(255,255,255,0.06)',
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            glowPulse: {
+              '0%, 100%': { opacity: '0.5' },
+              '50%': { opacity: '1' },
+            },
+          },
+        },
+      },
+    }
+  </script>
 
-    <style>
-        :root {
-            --cyan: #2dd4dc;
-            --purple: #8a5fff;
-            --navy: #0a0f1e;
-        }
+  <style>
+    :root {
+      --cyan: #2dd4dc;
+      --purple: #8a5fff;
+      --navy: #0a0f1e;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            background-color: var(--navy);
-            font-family: 'DM Sans', sans-serif;
-            color: #fff;
-            overflow-x: hidden;
-        }
+    body {
+      background-color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
 
+    /* ── Ambient glows ── */
+    .glow-orb-1 {
+      position: fixed; top: -160px; left: -160px;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(138,95,255,0.22) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
+    .glow-orb-2 {
+      position: fixed; bottom: -120px; right: -120px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,212,220,0.18) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      animation: glowPulse 5s ease-in-out infinite 1.5s;
+    }
 
-        /* ── Glass card ── */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50%       { opacity: 1;   transform: scale(1.05); }
+    }
 
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, transparent 60%);
-            border-radius: inherit;
-            pointer-events: none;
-        }
+    /* ── Glass card ── */
+    .glass-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .glass-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 60%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+    .glass-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.22);
+    }
 
-        .glass-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255, 255, 255, 0.22);
-        }
+    /* ── Navbar glass ── */
+    .glass-nav {
+      background: rgba(10,15,30,0.85);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
 
-        /* ── Navbar glass ── */
-        .glass-nav {
-            background: rgba(10, 15, 30, 0.85);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
+    /* ── Hero title gradient ── */
+    .hero-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, rgba(45,212,220,0.9) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        /* ── Hero title gradient ── */
-        .hero-gradient {
-            background: linear-gradient(135deg, #ffffff 0%, rgba(45, 212, 220, 0.9) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+    /* ── Skill chip ── */
+    .chip {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.75);
+      white-space: nowrap;
+    }
 
-        /* ── Skill chip ── */
-        .chip {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 999px;
-            font-size: 11px;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.75);
-            white-space: nowrap;
-        }
+    /* ── View button ── */
+    .view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .view-btn:hover {
+      transform: scale(1.04);
+    }
 
-        /* ── View button ── */
-        .view-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 20px;
-            border-radius: 999px;
-            font-size: 13px;
-            font-weight: 500;
-            border: 1px solid;
-            cursor: pointer;
-            transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-            text-decoration: none;
-            font-family: 'DM Sans', sans-serif;
-        }
+    /* ── Avatar ── */
+    .avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      border: 2.5px solid;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .avatar::after {
+      content: '';
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      opacity: 0.25;
+      filter: blur(8px);
+    }
 
-        .view-btn:hover {
-            transform: scale(1.04);
-        }
+    /* ── Card stagger animations ── */
+    .card-animate {
+      opacity: 0;
+      animation: fadeUp 0.55s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card-animate:nth-child(1) { animation-delay: 0.10s; }
+    .card-animate:nth-child(2) { animation-delay: 0.18s; }
+    .card-animate:nth-child(3) { animation-delay: 0.26s; }
+    .card-animate:nth-child(4) { animation-delay: 0.34s; }
+    .card-animate:nth-child(5) { animation-delay: 0.42s; }
+    .card-animate:nth-child(6) { animation-delay: 0.50s; }
 
-        /* ── Avatar ── */
-        .avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Syne', sans-serif;
-            font-size: 24px;
-            font-weight: 800;
-            border: 2.5px solid;
-            flex-shrink: 0;
-            position: relative;
-        }
+    /* ── Divider line ── */
+    .card-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin: 14px 0;
+    }
 
-        .avatar::after {
-            content: '';
-            position: absolute;
-            inset: -6px;
-            border-radius: 50%;
-            opacity: 0.25;
-            filter: blur(8px);
-        }
+    /* ── Hero tag badge ── */
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px;
+      border: 1px solid rgba(45,212,220,0.3);
+      background: rgba(45,212,220,0.08);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cyan);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
 
-        /* ── Card stagger animations ── */
-        /* .card-animate {
-            opacity: 0;
-            animation: fadeUp 0.55s ease forwards;
-        }
+    /* ── Noise texture overlay ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999; opacity: 0.4;
+    }
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(28px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card-animate:nth-child(1) {
-            animation-delay: 0.10s;
-        }
-
-        .card-animate:nth-child(2) {
-            animation-delay: 0.18s;
-        }
-
-        .card-animate:nth-child(3) {
-            animation-delay: 0.26s;
-        }
-
-        .card-animate:nth-child(4) {
-            animation-delay: 0.34s;
-        }
-
-        .card-animate:nth-child(5) {
-            animation-delay: 0.42s;
-        }
-
-        .card-animate:nth-child(6) {
-            animation-delay: 0.50s;
-        } */
-
-        /* ── Divider line ── */
-        .card-divider {
-            border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            margin: 14px 0;
-        }
-
-        /* ── Hero tag badge ── */
-        /* .hero-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 16px;
-            border: 1px solid rgba(45, 212, 220, 0.3);
-            background: rgba(45, 212, 220, 0.08);
-            border-radius: 999px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--cyan);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-        } */
-
-        /* ── Noise texture overlay ── */
-        /* body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 999;
-            opacity: 0.4;
-        } */
-
-        /* ── Scrollbar ── */
-        /* ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--navy);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 10px;
-        } */
-    </style>
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
+  </style>
 </head>
 
 <body>
 
-    <!-- ─── NAVBAR ─────────────────────────────────────────────────────── -->
-    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-10">
-        <a href="#" class="font-display font-bold text-xl tracking-tight" style="color: var(--cyan);">
-            ClassGlass
+  <!-- Ambient glows -->
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
+
+  <!-- ─── NAVBAR ─────────────────────────────────────────────────────── -->
+  <nav class="glass-nav fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-10">
+    <a href="#" class="font-display font-bold text-xl tracking-tight" style="color: var(--cyan);">
+      BLF Cohort 4
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#" class="text-sm font-medium text-white/80 hover:text-white transition-colors">Home</a>
+      <a href="#cards" class="text-sm font-medium text-white/60 hover:text-white transition-colors">Students</a>
+      <a href="#about" class="text-sm font-medium text-white/60 hover:text-white transition-colors">About</a>
+      <a href="#contact" class="text-sm font-medium text-white/60 hover:text-white transition-colors">Contact</a>
+    </div>
+    <!-- Mobile menu icon -->
+    <button class="md:hidden flex flex-col gap-1.5" aria-label="Menu">
+      <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
+      <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
+      <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
+    </button>
+  </nav>
+
+  <!-- ─── HERO ──────────────────────────────────────────────────────── -->
+  <header class="relative z-10 pt-36 pb-16 text-center px-6">
+    <div class="hero-tag mb-6 mx-auto" style="width: fit-content;">
+      <span>🎓</span> Cohort of 2026
+    </div>
+
+    <h1 class="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-tight hero-gradient mb-4">
+      Meet the Students
+    </h1>
+
+    <!-- Cyan accent line -->
+    <div class="mx-auto mb-6" style="width:200px; height:2px; background: linear-gradient(90deg, transparent, var(--cyan), transparent);"></div>
+
+    <p class="text-white/50 text-base md:text-lg max-w-lg mx-auto font-body leading-relaxed">
+      A dark-glass showcase of brilliant minds.<br/>
+      Click any card to explore their full profile.
+    </p>
+
+    <!-- Stats row -->
+    <div class="flex items-center justify-center gap-8 mt-10">
+      <div class="text-center">
+        <div class="font-display font-bold text-2xl" style="color: var(--cyan);">6</div>
+        <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Students</div>
+      </div>
+      <div class="w-px h-8 bg-white/10"></div>
+      <div class="text-center">
+        <div class="font-display font-bold text-2xl" style="color: var(--purple);">3</div>
+        <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Disciplines</div>
+      </div>
+      <div class="w-px h-8 bg-white/10"></div>
+      <div class="text-center">
+        <div class="font-display font-bold text-2xl" style="color: #ffd93d;">2026</div>
+        <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Cohort</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── CARDS GRID ────────────────────────────────────────────────── -->
+  <main id="cards" class="relative z-10 max-w-6xl mx-auto px-6 pb-24">
+
+    <p class="text-center text-white/30 text-sm mb-10 uppercase tracking-widest font-display">
+      — 6 Students · Click any card to explore —
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- ── CARD 1 — Amara Osei ── -->
+      <article class="glass-card card-animate p-6"
+        style="--glow: #2dd4dc;"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(45,212,220,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(45,212,220,0.15); border-color: #2dd4dc; color: #2dd4dc;">
+            D
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,220,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Dev Solex</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(45,212,220,0.12); color:#2dd4dc; border:1px solid rgba(45,212,220,0.3);">
+              Full-Stack Engineer
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Python</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">MySQL</span>
+          </div>
+        </div>
+        <a href="profile-amara.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(45,212,220,0.4); color:#2dd4dc; background:rgba(45,212,220,0.06);"
+          onmouseenter="this.style.background='rgba(45,212,220,0.14)'; this.style.boxShadow='0 0 16px rgba(45,212,220,0.2)'"
+          onmouseleave="this.style.background='rgba(45,212,220,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
         </a>
-        <div class="hidden md:flex items-center gap-8">
-            <a href="#" class="text-sm font-medium text-white/80 hover:text-white transition-colors">Home</a>
-            <a href="#cards" class="text-sm font-medium text-white/60 hover:text-white transition-colors">Students</a>
+      </article>
+
+      <!-- ── CARD 2 — Zara Ahmed ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(138,95,255,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(138,95,255,0.15); border-color: #8a5fff; color: #8a5fff;">
+            V
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(138,95,255,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Val Jnr</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(138,95,255,0.12); color:#8a5fff; border:1px solid rgba(138,95,255,0.3);">
+              Full-Stack Engineer
+            </span>
+          </div>
         </div>
-        <!-- Mobile menu icon -->
-        <button class="md:hidden flex flex-col gap-1.5" aria-label="Menu">
-            <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
-            <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
-            <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
-        </button>
-    </nav>
-
-    <!-- ─── HERO ──────────────────────────────────────────────────────── -->
-    <header class="relative z-10 pt-36 pb-16 text-center px-6">
-        <div class="hero-tag mb-6 mx-auto" style="width: fit-content;">
-            <span>🎓</span> Class of 2025
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Tailwind</span>
+            <span class="chip">Python</span>
+            <span class="chip">JavaScript</span>
+          </div>
         </div>
+        <a href="profile-zara.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(138,95,255,0.4); color:#8a5fff; background:rgba(138,95,255,0.06);"
+          onmouseenter="this.style.background='rgba(138,95,255,0.14)'; this.style.boxShadow='0 0 16px rgba(138,95,255,0.2)'"
+          onmouseleave="this.style.background='rgba(138,95,255,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
 
-        <h1 class="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-tight hero-gradient mb-4">
-            Meet the Students
-        </h1>
-
-        <!-- Cyan accent line -->
-        <div class="mx-auto mb-6"
-            style="width:200px; height:2px; background: linear-gradient(90deg, transparent, var(--cyan), transparent);">
+      <!-- ── CARD 3 — Kofi Mensah ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(255,128,64,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(255,128,64,0.15); border-color: #ff8040; color: #ff8040;">
+            A
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(255,128,64,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Amaka</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(255,128,64,0.12); color:#ff8040; border:1px solid rgba(255,128,64,0.3);">
+              Frontend Dev
+            </span>
+          </div>
         </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Tailwind</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">HTML</span>
+          </div>
+        </div>
+        <a href="profile-kofi.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(255,128,64,0.4); color:#ff8040; background:rgba(255,128,64,0.06);"
+          onmouseenter="this.style.background='rgba(255,128,64,0.14)'; this.style.boxShadow='0 0 16px rgba(255,128,64,0.2)'"
+          onmouseleave="this.style.background='rgba(255,128,64,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
 
-        <p class="text-white/50 text-base md:text-lg max-w-lg mx-auto font-body leading-relaxed">
-            A dark-glass showcase of brilliant minds.<br />
-            Click any card to explore their full profile.
+      <!-- ── CARD 4 — Lila Torres ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(64,230,122,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(64,230,122,0.15); border-color: #40e67a; color: #40e67a;">
+            I
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(64,230,122,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Iredia</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(64,230,122,0.12); color:#40e67a; border:1px solid rgba(64,230,122,0.3);">
+              Frontend Dev
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">JavaScript</span>
+            <span class="chip">Tailwind</span>
+            <span class="chip">HTML</span>
+          </div>
+        </div>
+        <a href="profile-lila.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(64,230,122,0.4); color:#40e67a; background:rgba(64,230,122,0.06);"
+          onmouseenter="this.style.background='rgba(64,230,122,0.14)'; this.style.boxShadow='0 0 16px rgba(64,230,122,0.2)'"
+          onmouseleave="this.style.background='rgba(64,230,122,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+      <!-- ── CARD 5 — Emeka Nwosu ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(255,217,61,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(255,217,61,0.15); border-color: #ffd93d; color: #ffd93d;">
+            A
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,61,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Andrew</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(255,217,61,0.12); color:#ffd93d; border:1px solid rgba(255,217,61,0.3);">
+              Full-Stack Engineer
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Python</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">Rust</span>
+          </div>
+        </div>
+        <a href="profile-emeka.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(255,217,61,0.4); color:#ffd93d; background:rgba(255,217,61,0.06);"
+          onmouseenter="this.style.background='rgba(255,217,61,0.14)'; this.style.boxShadow='0 0 16px rgba(255,217,61,0.2)'"
+          onmouseleave="this.style.background='rgba(255,217,61,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+      <!-- ── CARD 6 — Priya Sharma ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(232,77,160,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(232,77,160,0.15); border-color: #e84da0; color: #e84da0;">
+            M
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(232,77,160,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">MP</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(232,77,160,0.12); color:#e84da0; border:1px solid rgba(232,77,160,0.3);">
+              Full-Stack/Devops Engineer
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Python</span>
+            <span class="chip">Docker</span>
+            <span class="chip">JavaScript</span>
+          </div>
+        </div>
+        <a href="profile-priya.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(232,77,160,0.4); color:#e84da0; background:rgba(232,77,160,0.06);"
+          onmouseenter="this.style.background='rgba(232,77,160,0.14)'; this.style.boxShadow='0 0 16px rgba(232,77,160,0.2)'"
+          onmouseleave="this.style.background='rgba(232,77,160,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ─── ABOUT SECTION ─────────────────────────────────────────────────── -->
+  <section id="about" class="relative z-10 max-w-4xl mx-auto px-6 py-20">
+    <div class="glass-card p-8">
+      <h2 class="font-display font-bold text-3xl text-white mb-6 text-center">About BLF Cohort 4</h2>
+      <div class="max-w-3xl mx-auto">
+        <p class="text-white/70 text-base leading-relaxed mb-6 text-center">
+          BLF Cohort 4 represents a diverse group of talented developers and engineers from the Class of 2026. 
+          Our team specializes in full-stack development, frontend engineering, and DevOps, bringing together 
+          expertise in modern web technologies and innovative problem-solving approaches.
         </p>
-
-        <!-- Stats row -->
-        <div class="flex items-center justify-center gap-8 mt-10">
-            <div class="text-center">
-                <div class="font-display font-bold text-2xl" style="color: var(--cyan);">6</div>
-                <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Students</div>
-            </div>
-            <div class="w-px h-8 bg-white/10"></div>
-            <div class="text-center">
-                <div class="font-display font-bold text-2xl" style="color: var(--purple);">4</div>
-                <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Disciplines</div>
-            </div>
-            <div class="w-px h-8 bg-white/10"></div>
-            <div class="text-center">
-                <div class="font-display font-bold text-2xl" style="color: #ffd93d;">2025</div>
-                <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Cohort</div>
-            </div>
+        <div class="grid md:grid-cols-3 gap-6 mt-10">
+          <div class="text-center">
+            <div class="font-display font-bold text-2xl text-cyan mb-2">6</div>
+            <div class="text-xs text-white/40 uppercase tracking-widest">Team Members</div>
+          </div>
+          <div class="text-center">
+            <div class="font-display font-bold text-2xl text-purple mb-2">3</div>
+            <div class="text-xs text-white/40 uppercase tracking-widest">Disciplines</div>
+          </div>
+          <div class="text-center">
+            <div class="font-display font-bold text-2xl text-yellow-400 mb-2">2026</div>
+            <div class="text-xs text-white/40 uppercase tracking-widest">Graduation</div>
+          </div>
         </div>
-    </header>
+      </div>
+    </div>
+  </section>
 
-    <!-- ─── CARDS GRID ────────────────────────────────────────────────── -->
-    <main id="cards" class="relative z-10 max-w-6xl mx-auto px-6 pb-24">
-
-        <p class="text-center text-white/30 text-sm mb-10 uppercase tracking-widest font-display">
-            — 6 Students · Click any card to explore —
-        </p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <!-- ── CARD 1 — Amara Osei ── -->
-            <article class="glass-card card-animate p-6" style="--glow: #2dd4dc;"
-                onmouseenter="this.style.boxShadow='0 0 32px rgba(45,212,220,0.18)'"
-                onmouseleave="this.style.boxShadow='none'">
-                <div class="flex items-center gap-4">
-                    <div class="avatar"
-                        style="background: rgba(45,212,220,0.15); border-color: #2dd4dc; color: #2dd4dc;">
-                        A
-                        <span
-                            style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,220,0.3),transparent 70%);"></span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-lg text-white leading-tight">Amara Osei</h2>
-                        <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
-                            style="background:rgba(45,212,220,0.12); color:#2dd4dc; border:1px solid rgba(45,212,220,0.3);">
-                            Frontend Dev
-                        </span>
-                    </div>
-                </div>
-                <hr class="card-divider" />
-                <div class="mb-4">
-                    <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="chip">React</span>
-                        <span class="chip">CSS</span>
-                        <span class="chip">UX</span>
-                    </div>
-                </div>
-                <a href="profile-amara.html" class="view-btn w-full justify-center"
-                    style="border-color: rgba(45,212,220,0.4); color:#2dd4dc; background:rgba(45,212,220,0.06);"
-                    onmouseenter="this.style.background='rgba(45,212,220,0.14)'; this.style.boxShadow='0 0 16px rgba(45,212,220,0.2)'"
-                    onmouseleave="this.style.background='rgba(45,212,220,0.06)'; this.style.boxShadow='none'">
-                    View Profile <span>→</span>
-                </a>
-            </article>
-
-            <!-- ── CARD 2 — Zara Ahmed ── -->
-            <article class="glass-card card-animate p-6"
-                onmouseenter="this.style.boxShadow='0 0 32px rgba(138,95,255,0.18)'"
-                onmouseleave="this.style.boxShadow='none'">
-                <div class="flex items-center gap-4">
-                    <div class="avatar"
-                        style="background: rgba(138,95,255,0.15); border-color: #8a5fff; color: #8a5fff;">
-                        Z
-                        <span
-                            style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(138,95,255,0.3),transparent 70%);"></span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-lg text-white leading-tight">Zara Ahmed</h2>
-                        <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
-                            style="background:rgba(138,95,255,0.12); color:#8a5fff; border:1px solid rgba(138,95,255,0.3);">
-                            UI Designer
-                        </span>
-                    </div>
-                </div>
-                <hr class="card-divider" />
-                <div class="mb-4">
-                    <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="chip">Figma</span>
-                        <span class="chip">Tailwind</span>
-                        <span class="chip">SVG</span>
-                    </div>
-                </div>
-                <a href="profile-zara.html" class="view-btn w-full justify-center"
-                    style="border-color: rgba(138,95,255,0.4); color:#8a5fff; background:rgba(138,95,255,0.06);"
-                    onmouseenter="this.style.background='rgba(138,95,255,0.14)'; this.style.boxShadow='0 0 16px rgba(138,95,255,0.2)'"
-                    onmouseleave="this.style.background='rgba(138,95,255,0.06)'; this.style.boxShadow='none'">
-                    View Profile <span>→</span>
-                </a>
-            </article>
-
-            <!-- ── CARD 3 — Kofi Mensah ── -->
-            <article class="glass-card card-animate p-6"
-                onmouseenter="this.style.boxShadow='0 0 32px rgba(255,128,64,0.18)'"
-                onmouseleave="this.style.boxShadow='none'">
-                <div class="flex items-center gap-4">
-                    <div class="avatar"
-                        style="background: rgba(255,128,64,0.15); border-color: #ff8040; color: #ff8040;">
-                        K
-                        <span
-                            style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(255,128,64,0.3),transparent 70%);"></span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-lg text-white leading-tight">Kofi Mensah</h2>
-                        <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
-                            style="background:rgba(255,128,64,0.12); color:#ff8040; border:1px solid rgba(255,128,64,0.3);">
-                            Backend Dev
-                        </span>
-                    </div>
-                </div>
-                <hr class="card-divider" />
-                <div class="mb-4">
-                    <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="chip">Node.js</span>
-                        <span class="chip">Python</span>
-                        <span class="chip">SQL</span>
-                    </div>
-                </div>
-                <a href="profile-kofi.html" class="view-btn w-full justify-center"
-                    style="border-color: rgba(255,128,64,0.4); color:#ff8040; background:rgba(255,128,64,0.06);"
-                    onmouseenter="this.style.background='rgba(255,128,64,0.14)'; this.style.boxShadow='0 0 16px rgba(255,128,64,0.2)'"
-                    onmouseleave="this.style.background='rgba(255,128,64,0.06)'; this.style.boxShadow='none'">
-                    View Profile <span>→</span>
-                </a>
-            </article>
-
-            <!-- ── CARD 4 — Lila Torres ── -->
-            <article class="glass-card card-animate p-6"
-                onmouseenter="this.style.boxShadow='0 0 32px rgba(64,230,122,0.18)'"
-                onmouseleave="this.style.boxShadow='none'">
-                <div class="flex items-center gap-4">
-                    <div class="avatar"
-                        style="background: rgba(64,230,122,0.15); border-color: #40e67a; color: #40e67a;">
-                        L
-                        <span
-                            style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(64,230,122,0.3),transparent 70%);"></span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-lg text-white leading-tight">Lila Torres</h2>
-                        <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
-                            style="background:rgba(64,230,122,0.12); color:#40e67a; border:1px solid rgba(64,230,122,0.3);">
-                            Data Analyst
-                        </span>
-                    </div>
-                </div>
-                <hr class="card-divider" />
-                <div class="mb-4">
-                    <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="chip">Python</span>
-                        <span class="chip">Excel</span>
-                        <span class="chip">Data Viz</span>
-                    </div>
-                </div>
-                <a href="profile-lila.html" class="view-btn w-full justify-center"
-                    style="border-color: rgba(64,230,122,0.4); color:#40e67a; background:rgba(64,230,122,0.06);"
-                    onmouseenter="this.style.background='rgba(64,230,122,0.14)'; this.style.boxShadow='0 0 16px rgba(64,230,122,0.2)'"
-                    onmouseleave="this.style.background='rgba(64,230,122,0.06)'; this.style.boxShadow='none'">
-                    View Profile <span>→</span>
-                </a>
-            </article>
-
-            <!-- ── CARD 5 — Emeka Nwosu ── -->
-            <article class="glass-card card-animate p-6"
-                onmouseenter="this.style.boxShadow='0 0 32px rgba(255,217,61,0.18)'"
-                onmouseleave="this.style.boxShadow='none'">
-                <div class="flex items-center gap-4">
-                    <div class="avatar"
-                        style="background: rgba(255,217,61,0.15); border-color: #ffd93d; color: #ffd93d;">
-                        E
-                        <span
-                            style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,61,0.3),transparent 70%);"></span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-lg text-white leading-tight">Emeka Nwosu</h2>
-                        <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
-                            style="background:rgba(255,217,61,0.12); color:#ffd93d; border:1px solid rgba(255,217,61,0.3);">
-                            Mobile Dev
-                        </span>
-                    </div>
-                </div>
-                <hr class="card-divider" />
-                <div class="mb-4">
-                    <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="chip">Flutter</span>
-                        <span class="chip">Dart</span>
-                        <span class="chip">APIs</span>
-                    </div>
-                </div>
-                <a href="profile-emeka.html" class="view-btn w-full justify-center"
-                    style="border-color: rgba(255,217,61,0.4); color:#ffd93d; background:rgba(255,217,61,0.06);"
-                    onmouseenter="this.style.background='rgba(255,217,61,0.14)'; this.style.boxShadow='0 0 16px rgba(255,217,61,0.2)'"
-                    onmouseleave="this.style.background='rgba(255,217,61,0.06)'; this.style.boxShadow='none'">
-                    View Profile <span>→</span>
-                </a>
-            </article>
-
-            <!-- ── CARD 6 — Priya Sharma ── -->
-            <article class="glass-card card-animate p-6"
-                onmouseenter="this.style.boxShadow='0 0 32px rgba(232,77,160,0.18)'"
-                onmouseleave="this.style.boxShadow='none'">
-                <div class="flex items-center gap-4">
-                    <div class="avatar"
-                        style="background: rgba(232,77,160,0.15); border-color: #e84da0; color: #e84da0;">
-                        P
-                        <span
-                            style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(232,77,160,0.3),transparent 70%);"></span>
-                    </div>
-                    <div>
-                        <h2 class="font-display font-bold text-lg text-white leading-tight">Priya Sharma</h2>
-                        <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
-                            style="background:rgba(232,77,160,0.12); color:#e84da0; border:1px solid rgba(232,77,160,0.3);">
-                            Cybersecurity
-                        </span>
-                    </div>
-                </div>
-                <hr class="card-divider" />
-                <div class="mb-4">
-                    <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="chip">Linux</span>
-                        <span class="chip">Kali</span>
-                        <span class="chip">Networking</span>
-                    </div>
-                </div>
-                <a href="profile-priya.html" class="view-btn w-full justify-center"
-                    style="border-color: rgba(232,77,160,0.4); color:#e84da0; background:rgba(232,77,160,0.06);"
-                    onmouseenter="this.style.background='rgba(232,77,160,0.14)'; this.style.boxShadow='0 0 16px rgba(232,77,160,0.2)'"
-                    onmouseleave="this.style.background='rgba(232,77,160,0.06)'; this.style.boxShadow='none'">
-                    View Profile <span>→</span>
-                </a>
-            </article>
-
+  <!-- ─── CONTACT SECTION ────────────────────────────────────────────────── -->
+  <section id="contact" class="relative z-10 max-w-4xl mx-auto px-6 py-20">
+    <div class="glass-card p-8">
+      <h2 class="font-display font-bold text-3xl text-white mb-8 text-center">Get In Touch</h2>
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div>
+          <h3 class="font-display font-semibold text-xl text-white mb-4">Connect With Us</h3>
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-cyan/20 flex items-center justify-center">
+                <span class="text-cyan text-sm">📧</span>
+              </div>
+              <div>
+                <div class="text-white/60 text-xs uppercase tracking-widest">Email</div>
+                <div class="text-white/80 text-sm">admin@blockfuselabs.com</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-purple/20 flex items-center justify-center">
+                <span class="text-purple text-sm">💬</span>
+              </div>
+              <div>
+                <div class="text-white/60 text-xs uppercase tracking-widest">X-Handle</div>
+                <div class="text-white/80 text-sm">@blockfuselabs</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center">
+                <span class="text-yellow-400 text-sm">📍</span>
+              </div>
+              <div>
+                <div class="text-white/60 text-xs uppercase tracking-widest">Location</div>
+                <div class="text-white/80 text-sm">Favwei, Rayfield Rd, Jos Plateau State</div>
+              </div>
+            </div>
+          </div>
         </div>
-    </main>
+        <div>
+          <h3 class="font-display font-semibold text-xl text-white mb-4">Send Message</h3>
+          <form class="space-y-4">
+            <div>
+              <input type="text" placeholder="Your Name" 
+                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-cyan/50 focus:bg-white/8 transition-all">
+            </div>
+            <div>
+              <input type="email" placeholder="Your Email" 
+                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-cyan/50 focus:bg-white/8 transition-all">
+            </div>
+            <div>
+              <textarea placeholder="Your Message" rows="4"
+                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-cyan/50 focus:bg-white/8 transition-all resize-none"></textarea>
+            </div>
+            <button type="submit" 
+              class="w-full py-3 rounded-lg bg-cyan/10 border border-cyan/30 text-cyan hover:bg-cyan/20 hover:border-cyan/50 transition-all font-medium">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- ─── FOOTER ──────────────────────────────────────────────────────── -->
-    <footer class="relative z-10 text-center py-10 border-t border-white/05 text-white/25 text-sm font-body">
-        <span class="font-display font-semibold" style="color: var(--cyan);">ClassGlass</span>
-        &nbsp;·&nbsp; Class of 2025 &nbsp;·&nbsp; Built with 💙 by the team
-    </footer>
+  <!-- ─── FOOTER ──────────────────────────────────────────────────────── -->
+  <footer class="relative z-10 text-center py-10 border-t border-white/05 text-white/25 text-sm font-body">
+    <span class="font-display font-semibold" style="color: var(--cyan);">BLF Cohort 4</span>
+    &nbsp;·&nbsp; Class of 2026 &nbsp;·&nbsp; Built with 💙 by the team
+  </footer>
 
 </body>
-
 </html>
