@@ -8,42 +8,34 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Syne', 'sans-serif'],
-            body: ['DM Sans', 'sans-serif'],
-          },
-          colors: {
-            navy: '#0a0f1e',
-            glass: 'rgba(255,255,255,0.06)',
-          },
-          animation: {
-            'fade-up': 'fadeUp 0.6s ease forwards',
-            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
-          },
-          keyframes: {
-            fadeUp: {
-              '0%': { opacity: '0', transform: 'translateY(24px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            glowPulse: {
-              '0%, 100%': { opacity: '0.5' },
-              '50%': { opacity: '1' },
-            },
-          },
-        },
-      },
-    }
-  </script>
-
   <style>
     :root {
       --cyan: #2dd4dc;
       --purple: #8a5fff;
       --navy: #0a0f1e;
+    }
+
+    /* Custom Tailwind classes */
+    .font-display { font-family: 'Syne', sans-serif; }
+    .font-body { font-family: 'DM Sans', sans-serif; }
+    .bg-navy { background-color: #0a0f1e; }
+    .bg-glass { background: rgba(255,255,255,0.06); }
+
+    /* Custom animations */
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(24px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    .animate-glow-pulse {
+      animation: glowPulse 3s ease-in-out infinite;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
