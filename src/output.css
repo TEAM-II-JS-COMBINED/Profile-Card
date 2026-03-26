@@ -368,6 +368,9 @@
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
   }
+  .mb-14 {
+    margin-bottom: calc(var(--spacing) * 14);
+  }
   .mb-16 {
     margin-bottom: calc(var(--spacing) * 16);
   }
@@ -670,6 +673,9 @@
   }
   .border-b-\[\#A855F7\] {
     border-bottom-color: #A855F7;
+  }
+  .border-b-\[\#F472B8\] {
+    border-bottom-color: #F472B8;
   }
   .border-b-\[\#\] {
     border-bottom-color: #;
@@ -1052,6 +1058,9 @@
   }
   .text-\[\#14\] {
     color: #14;
+  }
+  .text-\[\#94A3B4\] {
+    color: #94A3B4;
   }
   .text-\[\#94A3B8\] {
     color: #94A3B8;
