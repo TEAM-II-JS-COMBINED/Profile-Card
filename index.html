@@ -7,5 +7,282 @@
 </head>
 <body>
 
+      <!-- ─── NAVBAR ─────────────────────────────────────────────────────── -->
+  <nav class="glass-nav fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-10">
+    <a href="#" class="font-display font-bold text-xl tracking-tight" style="color: var(--cyan);">
+      ClassGlass
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#" class="text-sm font-medium text-white/80 hover:text-white transition-colors">Home</a>
+      <a href="#cards" class="text-sm font-medium text-white/60 hover:text-white transition-colors">Students</a>
+    </div>
+    <!-- Mobile menu icon -->
+    <button class="md:hidden flex flex-col gap-1.5" aria-label="Menu">
+      <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
+      <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
+      <span class="block w-5 h-0.5 bg-white/70 rounded"></span>
+    </button>
+  </nav>
+
+  <!-- ─── HERO ──────────────────────────────────────────────────────── -->
+  <header class="relative z-10 pt-36 pb-16 text-center px-6">
+    <div class="hero-tag mb-6 mx-auto" style="width: fit-content;">
+      <span>🎓</span> Class of 2025
+    </div>
+
+    <h1 class="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-tight hero-gradient mb-4">
+      Meet the Students
+    </h1>
+
+    <!-- Cyan accent line -->
+    <div class="mx-auto mb-6" style="width:200px; height:2px; background: linear-gradient(90deg, transparent, var(--cyan), transparent);"></div>
+
+    <p class="text-white/50 text-base md:text-lg max-w-lg mx-auto font-body leading-relaxed">
+      A dark-glass showcase of brilliant minds.<br/>
+      Click any card to explore their full profile.
+    </p>
+
+    <!-- Stats row -->
+    <div class="flex items-center justify-center gap-8 mt-10">
+      <div class="text-center">
+        <div class="font-display font-bold text-2xl" style="color: var(--cyan);">6</div>
+        <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Students</div>
+      </div>
+      <div class="w-px h-8 bg-white/10"></div>
+      <div class="text-center">
+        <div class="font-display font-bold text-2xl" style="color: var(--purple);">4</div>
+        <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Disciplines</div>
+      </div>
+      <div class="w-px h-8 bg-white/10"></div>
+      <div class="text-center">
+        <div class="font-display font-bold text-2xl" style="color: #ffd93d;">2025</div>
+        <div class="text-xs text-white/40 mt-0.5 uppercase tracking-widest">Cohort</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── CARDS GRID ────────────────────────────────────────────────── -->
+  <main id="cards" class="relative z-10 max-w-6xl mx-auto px-6 pb-24">
+
+    <p class="text-center text-white/30 text-sm mb-10 uppercase tracking-widest font-display">
+      — 6 Students · Click any card to explore —
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- ── CARD 1 — Amara Osei ── -->
+      <article class="glass-card card-animate p-6"
+        style="--glow: #2dd4dc;"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(45,212,220,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(45,212,220,0.15); border-color: #2dd4dc; color: #2dd4dc;">
+            A
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,220,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Amara Osei</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(45,212,220,0.12); color:#2dd4dc; border:1px solid rgba(45,212,220,0.3);">
+              Frontend Dev
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">React</span>
+            <span class="chip">CSS</span>
+            <span class="chip">UX</span>
+          </div>
+        </div>
+        <a href="profile-amara.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(45,212,220,0.4); color:#2dd4dc; background:rgba(45,212,220,0.06);"
+          onmouseenter="this.style.background='rgba(45,212,220,0.14)'; this.style.boxShadow='0 0 16px rgba(45,212,220,0.2)'"
+          onmouseleave="this.style.background='rgba(45,212,220,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+      <!-- ── CARD 2 — Zara Ahmed ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(138,95,255,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(138,95,255,0.15); border-color: #8a5fff; color: #8a5fff;">
+            Z
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(138,95,255,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Zara Ahmed</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(138,95,255,0.12); color:#8a5fff; border:1px solid rgba(138,95,255,0.3);">
+              UI Designer
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Figma</span>
+            <span class="chip">Tailwind</span>
+            <span class="chip">SVG</span>
+          </div>
+        </div>
+        <a href="profile-zara.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(138,95,255,0.4); color:#8a5fff; background:rgba(138,95,255,0.06);"
+          onmouseenter="this.style.background='rgba(138,95,255,0.14)'; this.style.boxShadow='0 0 16px rgba(138,95,255,0.2)'"
+          onmouseleave="this.style.background='rgba(138,95,255,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+      <!-- ── CARD 3 — Kofi Mensah ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(255,128,64,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(255,128,64,0.15); border-color: #ff8040; color: #ff8040;">
+            K
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(255,128,64,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Kofi Mensah</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(255,128,64,0.12); color:#ff8040; border:1px solid rgba(255,128,64,0.3);">
+              Backend Dev
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Node.js</span>
+            <span class="chip">Python</span>
+            <span class="chip">SQL</span>
+          </div>
+        </div>
+        <a href="profile-kofi.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(255,128,64,0.4); color:#ff8040; background:rgba(255,128,64,0.06);"
+          onmouseenter="this.style.background='rgba(255,128,64,0.14)'; this.style.boxShadow='0 0 16px rgba(255,128,64,0.2)'"
+          onmouseleave="this.style.background='rgba(255,128,64,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+      <!-- ── CARD 4 — Lila Torres ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(64,230,122,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(64,230,122,0.15); border-color: #40e67a; color: #40e67a;">
+            L
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(64,230,122,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Lila Torres</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(64,230,122,0.12); color:#40e67a; border:1px solid rgba(64,230,122,0.3);">
+              Data Analyst
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Python</span>
+            <span class="chip">Excel</span>
+            <span class="chip">Data Viz</span>
+          </div>
+        </div>
+        <a href="profile-lila.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(64,230,122,0.4); color:#40e67a; background:rgba(64,230,122,0.06);"
+          onmouseenter="this.style.background='rgba(64,230,122,0.14)'; this.style.boxShadow='0 0 16px rgba(64,230,122,0.2)'"
+          onmouseleave="this.style.background='rgba(64,230,122,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+      <!-- ── CARD 5 — Emeka Nwosu ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(255,217,61,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(255,217,61,0.15); border-color: #ffd93d; color: #ffd93d;">
+            E
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(255,217,61,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Emeka Nwosu</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(255,217,61,0.12); color:#ffd93d; border:1px solid rgba(255,217,61,0.3);">
+              Mobile Dev
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Flutter</span>
+            <span class="chip">Dart</span>
+            <span class="chip">APIs</span>
+          </div>
+        </div>
+        <a href="profile-emeka.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(255,217,61,0.4); color:#ffd93d; background:rgba(255,217,61,0.06);"
+          onmouseenter="this.style.background='rgba(255,217,61,0.14)'; this.style.boxShadow='0 0 16px rgba(255,217,61,0.2)'"
+          onmouseleave="this.style.background='rgba(255,217,61,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+      <!-- ── CARD 6 — Priya Sharma ── -->
+      <article class="glass-card card-animate p-6"
+        onmouseenter="this.style.boxShadow='0 0 32px rgba(232,77,160,0.18)'"
+        onmouseleave="this.style.boxShadow='none'">
+        <div class="flex items-center gap-4">
+          <div class="avatar" style="background: rgba(232,77,160,0.15); border-color: #e84da0; color: #e84da0;">
+            P
+            <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(232,77,160,0.3),transparent 70%);"></span>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-lg text-white leading-tight">Priya Sharma</h2>
+            <span class="inline-block mt-1 px-3 py-0.5 rounded-full text-xs font-medium"
+              style="background:rgba(232,77,160,0.12); color:#e84da0; border:1px solid rgba(232,77,160,0.3);">
+              Cybersecurity
+            </span>
+          </div>
+        </div>
+        <hr class="card-divider" />
+        <div class="mb-4">
+          <p class="text-xs text-white/40 uppercase tracking-widest mb-2 font-display">Skills</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="chip">Linux</span>
+            <span class="chip">Kali</span>
+            <span class="chip">Networking</span>
+          </div>
+        </div>
+        <a href="profile-priya.html" class="view-btn w-full justify-center"
+          style="border-color: rgba(232,77,160,0.4); color:#e84da0; background:rgba(232,77,160,0.06);"
+          onmouseenter="this.style.background='rgba(232,77,160,0.14)'; this.style.boxShadow='0 0 16px rgba(232,77,160,0.2)'"
+          onmouseleave="this.style.background='rgba(232,77,160,0.06)'; this.style.boxShadow='none'">
+          View Profile <span>→</span>
+        </a>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ─── FOOTER ──────────────────────────────────────────────────────── -->
+  <footer class="relative z-10 text-center py-10 border-t border-white/05 text-white/25 text-sm font-body">
+    <span class="font-display font-semibold" style="color: var(--cyan);">ClassGlass</span>
+    &nbsp;·&nbsp; Class of 2025 &nbsp;·&nbsp; Built with 💙 by the team
+  </footer>
+
 </body>
 </html>
