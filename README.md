@@ -1,32 +1,35 @@
-# ClassGlass - Student Profile Cards
+# BLF Cohort 4 - Team II Profile Directory
 
-A modern, dark-themed student directory showcasing the Class of 2025 with beautiful glass-morphism design and interactive profile cards.
+A modern, dark-themed student directory showcasing the BLF Cohort 4 Team II with beautiful glass-morphism design and unique individual profile pages.
 
 ## 🎓 Overview
 
-ClassGlass is an elegant student profile directory featuring:
-- **6 Student Profiles** across 4 different disciplines
+BLF Cohort 4 Team II Profile Directory is an elegant student profile system featuring:
+- **4 Team Member Profiles** with specialized roles and skills
 - **Glass-morphism Design** with dark theme and vibrant accents
 - **Responsive Layout** that works seamlessly on all devices
 - **Interactive Cards** with hover effects and smooth animations
-- **Modern Tech Stack** built with Tailwind CSS v4
+- **Unique Profile Pages** - Each member has a distinct profile layout
+- **Modern Tech Stack** built with Tailwind CSS
 
 ## 🚀 Features
 
 - **Responsive Grid Layout** - Adapts from 1 to 3 columns based on screen size
 - **Glass-morphism Effects** - Beautiful frosted glass appearance with backdrop blur
 - **Interactive Hover States** - Dynamic glow effects and smooth transitions
-- **Color-coded Disciplines** - Each student has a unique color theme
+- **Color-coded Disciplines** - Each team member has a unique color theme
 - **Mobile Navigation** - Hamburger menu for mobile devices
-- **Smooth Scrolling** - Navigation between sections
-- **Modern Typography** - Custom font displays and readable body text
+- **Individual Profile Pages** - Unique layouts for each team member
+- **Photo Galleries** - Visual portfolios for design-focused members
+- **Project Showcases** - Technical project demonstrations
 
 ## 🛠️ Tech Stack
 
 - **HTML5** - Semantic markup and structure
-- **Tailwind CSS v4** - Utility-first styling framework
-- **Vanilla JavaScript** - Interactive features and animations
+- **Tailwind CSS** - Utility-first styling framework
+- **Google Fonts** - Syne and DM Sans typography
 - **CSS Variables** - Dynamic theming and color management
+- **Vanilla CSS Animations** - Smooth transitions and effects
 
 ## 📁 Project Structure
 
@@ -36,12 +39,11 @@ Profile-Card/
 ├── src/
 │   ├── input.css          # Tailwind CSS imports
 │   ├── output.css         # Compiled Tailwind styles
-│   ├── profile-1.html     # Amara Osei profile
-│   ├── profile-2.html     # Zara Ahmed profile
-│   ├── profile-3.html     # Kofi Mensah profile
-│   ├── profile-4.html     # Lila Torres profile
-│   ├── profile-5.html     # Emeka Nwosu profile
-│   └── profile-6.html     # Priya Sharma profile
+│   ├── profile-1.html     # Iredia - Frontend Developer
+│   ├── profile-2.html     # Dev Solex - Full-Stack/DevOps Engineer
+│   ├── profile-3.html     # Amaka - Frontend Developer
+│   └── profile-4.html     # Val Jnr - Full-Stack Engineer
+├── image/                  # Image assets directory
 ├── package.json           # Dependencies and scripts
 ├── package-lock.json      # Dependency lock file
 ├── .gitignore            # Git ignore rules
@@ -55,23 +57,39 @@ Profile-Card/
 - **Purple** (#8a5fff) - Secondary accent
 - **Orange** (#ff8040) - Tertiary accent
 - **Green** (#40e67a) - Success/accent
-- **Yellow** (#ffd93d) - Highlight color
-- **Pink** (#e84da0) - Additional accent
+- **Navy** (#0a0f1e) - Dark background
 
 ### Typography
-- **Display Font** - Bold, modern sans-serif for headings
-- **Body Font** - Clean, readable sans-serif for content
+- **Display Font** - Syne (bold, modern)
+- **Body Font** - DM Sans (clean, readable)
 
-## 👥 Student Profiles
+## 👥 Team Members
 
-The directory features 6 students from various disciplines:
+The directory features 4 team members with specialized roles:
 
-1. **Amara Osei** - Frontend Developer (React, CSS, UX)
-2. **Zara Ahmed** - UI Designer (Figma, Tailwind, SVG)
-3. **Kofi Mensah** - Backend Developer (Node.js, Python, SQL)
-4. **Lila Torres** - Data Analyst (Python, Excel, Data Viz)
-5. **Emeka Nwosu** - Mobile Developer (Flutter, Dart, APIs)
-6. **Priya Sharma** - Cybersecurity (Linux, Kali, Networking)
+### 🟢 Iredia - Frontend Developer
+- **Profile**: `profile-1.html`
+- **Layout**: UI/UX Showcase with design components
+- **Skills**: JavaScript, Tailwind, HTML, CSS, React
+- **Specialties**: Component libraries, user research, prototypes
+
+### 🔵 Dev Solex - Full-Stack/DevOps Engineer
+- **Profile**: `profile-2.html`
+- **Layout**: Featured projects with mini gallery
+- **Skills**: Python, FastAPI, JavaScript, DevOps, CI/CD
+- **Specialties**: EduTrack Dashboard, Vintique, PayIt
+
+### 🟡 Amaka - Frontend Developer
+- **Profile**: `profile-3.html`
+- **Layout**: About section + Photo gallery + Projects
+- **Skills**: Tailwind, JavaScript, HTML, CSS, Vue.js
+- **Specialties**: Visual design, photography, UI components
+
+### 🟣 Val Jnr - Full-Stack Engineer
+- **Profile**: `profile-4.html`
+- **Layout**: Featured projects showcase
+- **Skills**: Tailwind, Python, JavaScript, Node.js, MongoDB
+- **Specialties**: System architecture, database design, API development
 
 ## 🚀 Getting Started
 
@@ -90,56 +108,34 @@ The directory features 6 students from various disciplines:
 2. **Start development server**
    - Using VS Code Live Server extension
    - Or use any local server (GoLive, Python HTTP server, etc.)
-   - Open `index.html` directly in browser (limited functionality)
+   - Open `index.html` directly in browser
 
 3. **Navigate to individual profiles**
-   - Click on any student card in the main directory
-   - Or directly access: `src/profile-[1-6].html`
+   - Click on any team member card in the main directory
+   - Or directly access: `src/profile-[1-4].html`
 
-## 🎯 Customization
+## 🎯 Profile Page Features
 
-### Adding New Students
+### Unique Layouts
+- **Iredia**: UI/UX showcase with design components
+- **Dev Solex**: Projects with integrated photo gallery
+- **Amaka**: Photo gallery + projects combination
+- **Val Jnr**: System architecture and projects
 
-1. Copy an existing card structure in `index.html`
-2. Create a new profile file in `src/` directory (e.g., `profile-7.html`)
-3. Update the student information:
-   - Name and role
-   - Avatar initial and color
-   - Skills list
-   - Profile link (`href="profile-7.html"`)
-4. Adjust the color variables for unique theming
-5. Update the README with new student information
-
-### Modifying Colors
-
-Update the CSS variables in the styles section:
-```css
-:root {
-  --cyan: #2dd4dc;
-  --purple: #8a5fff;
-  /* ... other colors */
-}
-```
-
-### Adding New Sections
-
-1. Create new HTML sections following the existing pattern
-2. Use the established CSS classes for consistency
-3. Add navigation links if needed
+### Common Elements
+- **Glass-morphism cards** with hover effects
+- **Technical skills** with progress bars
+- **Contact information** with social links
+- **Responsive navigation** back to main directory
 
 ## 🔧 Development
 
 ### CSS Architecture
 - **Tailwind CSS** for utility classes
-- **Custom CSS** for specific glass-morphism effects
+- **Custom CSS** for glass-morphism effects
 - **CSS Variables** for consistent theming
 - **Responsive Design** with mobile-first approach
 
-### JavaScript Features
-- **Smooth scrolling** navigation
-- **Interactive hover effects**
-- **Mobile menu toggle**
-- **Dynamic shadow effects**
 
 ## 📱 Browser Support
 
@@ -161,8 +157,8 @@ Update the CSS variables in the styles section:
 
 - **Tailwind CSS** for the amazing utility framework
 - **Glass-morphism design** inspiration from modern UI trends
-- **Class of 2025** - the brilliant students featured in this directory
+- **BLF Cohort 4 Team II** - the brilliant team members featured
 
 ---
 
-Built with 💙 by the development team
+Built with 💙 by BLF Cohort 4 Team II
