@@ -3,156 +3,377 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClassGlass Profile</title>
-  <link href="/src/output.css" rel="stylesheet">
+  <title>Dev Solex - BLF Cohort 4</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cyan: #2dd4dc;
+      --purple: #8a5fff;
+      --navy: #0a0f1e;
+    }
+
+    /* Custom Tailwind classes */
+    .font-display { font-family: 'Syne', sans-serif; }
+    .font-body { font-family: 'DM Sans', sans-serif; }
+    .bg-navy { background-color: #0a0f1e; }
+    .bg-glass { background: rgba(255,255,255,0.06); }
+
+    /* Custom animations */
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(24px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    .animate-glow-pulse {
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ── Ambient glows ── */
+    .glow-orb-1 {
+      position: fixed; top: -200px; left: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(45,212,220,0.18) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      animation: glowPulse 5s ease-in-out infinite 1.5s;
+    }
+    .glow-orb-2 {
+      position: fixed; bottom: -150px; right: -150px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(138,95,255,0.18) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+      animation: glowPulse 5s ease-in-out infinite;
+    }
+
+    /* ── Glass card ── */
+    .glass-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .glass-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 60%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    /* ── Glass navigation ── */
+    .glass-nav {
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ── Avatar ── */
+    .avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      border: 2.5px solid;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .avatar::after {
+      content: '';
+      position: absolute; inset: -6px;
+      border-radius: 50%;
+      opacity: 0.25;
+      filter: blur(8px);
+    }
+
+    /* ── Skill chip ── */
+    .chip {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.75);
+      white-space: nowrap;
+    }
+
+    /* ── View button ── */
+    .view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+      text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .view-btn:hover {
+      transform: scale(1.04);
+    }
+
+    /* ── Noise texture overlay ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 999; opacity: 0.4;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 10px; }
+  </style>
 </head>
 
-<body class="bg-gradient-to-b from-[#0a0f2c] to-[#020617] text-white font-sans">
+<body>
 
-  <!-- Main Wrapper -->
-  <div class="min-h-screen px-6 py-6">
+  <!-- Ambient glows -->
+  <div class="glow-orb-1"></div>
+  <div class="glow-orb-2"></div>
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-10">
-      <h1 class="text-lg font-semibold text-cyan-400">ClassGlass</h1>
-      <a href="#" class="text-sm text-gray-400 hover:text-white">&lt; Back to Directory</a>
+  <!-- ─── NAVBAR ─────────────────────────────────────────────────────── -->
+  <nav class="glass-nav fixed top-0 left-0 right-0 z-50 h-16 flex items-center justify-between px-10">
+    <a href="/index.html" class="font-display font-bold text-xl tracking-tight" style="color: var(--cyan);">
+      BLF Cohort 4
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/index.html" class="text-sm font-medium text-white/80 hover:text-white transition-colors">← Back to Directory</a>
     </div>
+    <!-- Mobile menu icon -->
+    <button class="md:hidden flex flex-col gap-1.5" aria-label="Menu">
+      <span class="w-6 h-0.5 bg-white/60"></span>
+      <span class="w-6 h-0.5 bg-white/60"></span>
+      <span class="w-6 h-0.5 bg-white/60"></span>
+    </button>
+  </nav>
 
-    <!-- Profile Section -->
-    <div class="flex justify-between items-center mb-12">
+  <!-- ─── MAIN CONTENT ─────────────────────────────────────────────────── -->
+  <main class="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-24">
 
-      <!-- Left -->
-      <div class="flex items-center gap-5">
-        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-2xl font-bold">
-          AO
+    <!-- Profile Header -->
+    <div class="glass-card p-8 mb-8 animate-fade-up">
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <div class="avatar" style="background: rgba(45,212,220,0.15); border-color: #2dd4dc; color: #2dd4dc;">
+          DS
+          <span style="position:absolute;inset:-8px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,220,0.3),transparent 70%);"></span>
         </div>
-
-        <div>
-          <h2 class="text-2xl font-semibold">Amara Osei</h2>
-          <p class="text-gray-400 text-sm mt-1">
-            UI Designer · Computer Science · Class of 2025
-          </p>
-
-          <div class="flex gap-2 mt-3">
-            <span class="px-3 py-1 text-xs rounded-full bg-cyan-500/20 text-cyan-300">GitHub</span>
-            <span class="px-3 py-1 text-xs rounded-full bg-purple-500/20 text-purple-300">LinkedIn</span>
-            <span class="px-3 py-1 text-xs rounded-full bg-blue-500/20 text-blue-300">Twitter</span>
+        <div class="flex-1 text-center md:text-left">
+          <h1 class="font-display font-bold text-3xl md:text-4xl text-white mb-2">Dev Solex</h1>
+          <p class="text-white/70 text-lg mb-4">Full-Stack/DevOps Engineer at Blockfuse Labs</p>
+          <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-4">
+            <span class="chip">Python</span>
+            <span class="chip">FastAPI</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">DevOps</span>
+            <span class="chip">CI/CD</span>
+          </div>
+          <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+            <a href="#email" class="view-btn" style="border-color: rgba(45,212,220,0.4); color:#2dd4dc; background:rgba(45,212,220,0.06);">
+              <span>📧</span> Contact
+            </a>
+            <a href="#github" class="view-btn" style="border-color: rgba(138,95,255,0.4); color:#8a5fff; background:rgba(138,95,255,0.06);">
+              <span>💼</span> GitHub
+            </a>
+            <a href="#linkedin" class="view-btn" style="border-color: rgba(255,128,64,0.4); color:#ff8040; background:rgba(255,128,64,0.06);">
+              <span>🔗</span> LinkedIn
+            </a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div class="text-center">
+            <div class="font-display font-bold text-2xl" style="color: var(--cyan);">Available</div>
+            <div class="text-xs text-white/40 uppercase tracking-widest">For Hire</div>
+          </div>
+          <div class="w-px h-8 bg-white/10 mx-auto"></div>
+          <div class="text-center">
+            <div class="font-display font-bold text-2xl" style="color: var(--purple);">Active</div>
+            <div class="text-xs text-white/40 uppercase tracking-widest">Status</div>
           </div>
         </div>
       </div>
-
-      <!-- Right -->
-      <div class="flex flex-col gap-3">
-        <span class="px-4 py-1 text-xs rounded-full bg-cyan-500/20 text-cyan-300 text-center">GPA: 3.9</span>
-        <span class="px-4 py-1 text-xs rounded-full bg-green-500/20 text-green-300 text-center">Active</span>
-      </div>
-
     </div>
 
     <!-- Content Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-      <!-- About -->
-      <div class="bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur">
-        <h3 class="text-sm font-semibold mb-3">About Me</h3>
-        <p class="text-sm text-gray-400 leading-relaxed">
-          I'm a passionate UI Designer from Lagos with a love for clean, intuitive interfaces.
-          Currently studying Computer Science at the University of Abuja, I blend aesthetics
-          with functionality to create digital experiences that truly resonate with users.
+      <!-- About Section -->
+      <div class="glass-card p-8 animate-fade-up" style="animation-delay: 0.1s;">
+        <h2 class="font-display font-bold text-xl text-white mb-6 flex items-center gap-3">
+          <span style="color: var(--cyan);">👋</span> About Me
+        </h2>
+        <p class="text-white/70 leading-relaxed mb-6">
+          I'm a passionate Full-Stack/DevOps Engineer from Jos with a love for building scalable, 
+          robust applications and optimizing development workflows. Currently building at Blockfuse Labs, I specialize in creating efficient CI/CD pipelines, cloud infrastructure, 
+          and end-to-end solutions that bridge the gap between development and operations.
         </p>
-      </div>
-
-      <!-- Portfolio -->
-      <div class="bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur">
-        <h3 class="text-sm font-semibold mb-3">Portfolio / Gallery</h3>
-
-        <div class="grid grid-cols-3 gap-3">
-          <div class="bg-gradient-to-br from-purple-500/20 to-indigo-500/20 p-3 rounded-lg">
-            <div class="h-10 bg-white/10 rounded mb-2"></div>
-            <p class="text-xs text-purple-300">EduTrack Dashboard</p>
-          </div>
-
-          <div class="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 p-3 rounded-lg">
-            <div class="h-10 bg-white/10 rounded mb-2"></div>
-            <p class="text-xs text-cyan-300">Campus Map App</p>
-          </div>
-
-          <div class="bg-gradient-to-br from-green-500/20 to-teal-500/20 p-3 rounded-lg">
-            <div class="h-10 bg-white/10 rounded mb-2"></div>
-            <p class="text-xs text-green-300">Student Portal UI</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Skills -->
-      <div class="bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur">
-        <h3 class="text-sm font-semibold mb-4">Skills & Stats</h3>
-
         <div class="space-y-4">
-
-          <div>
-            <div class="flex justify-between text-xs mb-1">
-              <span>Figma / UI Design</span>
-              <span>95%</span>
-            </div>
-            <div class="w-full h-2 bg-white/10 rounded">
-              <div class="h-2 bg-purple-400 rounded w-[95%]"></div>
-            </div>
+          <div class="flex items-center gap-3">
+            <span class="text-cyan">🎓</span>
+            <span class="text-white/60">Software Engineering At Blockfuse Labs.</span>
           </div>
-
-          <div>
-            <div class="flex justify-between text-xs mb-1">
-              <span>HTML & CSS</span>
-              <span>85%</span>
-            </div>
-            <div class="w-full h-2 bg-white/10 rounded">
-              <div class="h-2 bg-cyan-400 rounded w-[85%]"></div>
-            </div>
+          <div class="flex items-center gap-3">
+            <span class="text-purple">📍</span>
+            <span class="text-white/60">Jos, Nigeria</span>
           </div>
-
-          <div>
-            <div class="flex justify-between text-xs mb-1">
-              <span>JavaScript</span>
-              <span>70%</span>
-            </div>
-            <div class="w-full h-2 bg-white/10 rounded">
-              <div class="h-2 bg-teal-400 rounded w-[70%]"></div>
-            </div>
+          <div class="flex items-center gap-3">
+            <span class="text-orange">💼</span>
+            <span class="text-white/60">Full-Stack/DevOps Engineer</span>
           </div>
-
-          <div>
-            <div class="flex justify-between text-xs mb-1">
-              <span>User Research</span>
-              <span>80%</span>
-            </div>
-            <div class="w-full h-2 bg-white/10 rounded">
-              <div class="h-2 bg-pink-400 rounded w-[80%]"></div>
-            </div>
-          </div>
-
         </div>
       </div>
 
-      <!-- Contact -->
-      <div class="bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur">
-        <h3 class="text-sm font-semibold mb-4">Contact Info</h3>
+      <!-- Technical Skills -->
+      <div class="glass-card p-8 animate-fade-up" style="animation-delay: 0.2s;">
+        <h2 class="font-display font-bold text-xl text-white mb-6 flex items-center gap-3">
+          <span style="color: var(--purple);">⚡</span> Technical Skills
+        </h2>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-white/80">Python / FastAPI</span>
+              <span class="text-cyan">95%</span>
+            </div>
+            <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-cyan-400 to-cyan-500 rounded-full" style="width: 95%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-white/80">HTML & CSS</span>
+              <span class="text-cyan">95%</span>
+            </div>
+            <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-purple-400 to-purple-500 rounded-full" style="width: 95%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-white/80">JavaScript</span>
+              <span class="text-cyan">50%</span>
+            </div>
+            <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-orange-400 to-orange-500 rounded-full" style="width: 50%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-white/80">Research</span>
+              <span class="text-cyan">80%</span>
+            </div>
+            <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-green-400 to-green-500 rounded-full" style="width: 80%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <div class="space-y-3 text-sm text-gray-400">
-          <p>📧 amara.okafor@student.edu</p>
-          <p>🌐 github.com/amara-okafor</p>
-          <p>🔗 linkedin.com/in/amara</p>
-          <p>🎨 @amara_designs</p>
+      <!-- Featured Projects -->
+      <div class="glass-card p-8 animate-fade-up" style="animation-delay: 0.3s;">
+        <h2 class="font-display font-bold text-xl text-white mb-6 flex items-center gap-3">
+          <span style="color: var(--orange);">🚀</span> Featured Projects
+        </h2>
+        <div class="space-y-4">
+          <div class="border-l-2 border-cyan/30 pl-4">
+            <h3 class="font-semibold text-white mb-1">EduTrack Dashboard</h3>
+            <p class="text-white/60 text-sm mb-2">Student management system with real-time analytics</p>
+            <div class="flex gap-2">
+              <span class="chip">Python</span>
+              <span class="chip">FastAPI</span>
+              <span class="chip">MySQL</span>
+            </div>
+          </div>
+          <div class="border-l-2 border-purple/30 pl-4">
+            <h3 class="font-semibold text-white mb-1">Vintique</h3>
+            <p class="text-white/60 text-sm mb-2">Interactive navigation system for affordable vintage clothing stores</p>
+            <div class="flex gap-2">
+              <span class="chip">JavaScript</span>
+              <span class="chip">Python</span>
+              <span class="chip">Tailwind</span>
+            </div>
+          </div>
+          <div class="border-l-2 border-green/30 pl-4">
+            <h3 class="font-semibold text-white mb-1">PayIt</h3>
+            <p class="text-white/60 text-sm mb-2">Modern System that bridge the gap of middle man in farming industry</p>
+            <div class="flex gap-2">
+              <span class="chip">Docker</span>
+              <span class="chip">Python</span>
+              <span class="chip">MySQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact & Links -->
+      <div class="glass-card p-8 animate-fade-up" style="animation-delay: 0.4s;">
+        <h2 class="font-display font-bold text-xl text-white mb-6 flex items-center gap-3">
+          <span style="color: var(--green);">📬</span> Get In Touch
+        </h2>
+        <div class="space-y-4">
+          <a href="mailto:dev.solex@example.com" class="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all group">
+            <span class="text-cyan text-lg">📧</span>
+            <div>
+              <div class="text-white/80 text-sm">Email</div>
+              <div class="text-white/60 text-xs">devsolex6@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://github.com/devsolex" class="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all group">
+            <span class="text-purple text-lg">💻</span>
+            <div>
+              <div class="text-white/80 text-sm">GitHub</div>
+              <div class="text-white/60 text-xs">github.com/devsolex</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/devsolex" class="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all group">
+            <span class="text-orange text-lg">💼</span>
+            <div>
+              <div class="text-white/80 text-sm">LinkedIn</div>
+              <div class="text-white/60 text-xs">linkedin.com/in/devsolex</div>
+            </div>
+          </a>
+          <a href="https://twitter.com/devsolex" class="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all group">
+            <span class="text-green text-lg">🐦</span>
+            <div>
+              <div class="text-white/80 text-sm">Twitter</span>
+              <div class="text-white/60 text-xs">@devsolex</div>
+            </div>
+          </a>
         </div>
       </div>
 
     </div>
 
-    <!-- Footer -->
-    <div class="text-center text-xs text-gray-500 mt-12">
-      ClassGlass · Student Directory · Class of 2025
-    </div>
-
-  </div>
+  </main>
 
 </body>
 </html>
